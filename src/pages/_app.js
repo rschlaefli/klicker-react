@@ -9,8 +9,6 @@ import { IntlProvider } from 'react-intl'
 import { DndProvider } from 'react-dnd-cjs'
 import { ToastProvider } from 'react-toast-notifications'
 
-import withApolloClient from '../lib/withApolloClient'
-
 // HACK: import an empty css file such that pages with css files loaded don't become unroutable (e.g., pages with Countdown.js)
 import './app.css'
 
@@ -115,17 +113,15 @@ class Klicker extends App {
     return (
       <DndProvider backend={HTML5Backend}>
         <IntlProvider initialNow={now} locale={locale} messages={messages}>
-          <ApolloProvider client={apolloClient}>
-            <ToastProvider>
-              <StrictMode>
-                <Component {...pageProps} error={this.state.error} />
-              </StrictMode>
-            </ToastProvider>
-          </ApolloProvider>
+          <ToastProvider>
+            <StrictMode>
+              <Component {...pageProps} error={this.state.error} />
+            </StrictMode>
+          </ToastProvider>
         </IntlProvider>
       </DndProvider>
     )
   }
 }
 
-export default withApolloClient(Klicker)
+export default Klicker
